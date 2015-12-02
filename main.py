@@ -39,7 +39,7 @@ csv_file_name = raw_input("- Indiquer le nom du fichier CSV contenant les emails
 futils.check_if_csv(csv_file_name)
 
 # Lire les données
-with open(csv_file_name, 'rb') as csv_file:
+with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
     reader = csv.reader(csv_file, delimiter=',')
     next(reader) # Skip la première ligne (nom des colonnes)
 
@@ -50,14 +50,14 @@ with open(csv_file_name, 'rb') as csv_file:
         name = row_array[1]
         email = row_array[2]
         # Formatage: supprimer les guillemets (') au début et à la fin
-        name = name[2:-1]
-        email = email[2:-1]
+        #name = name[2:-1]
+        #email = email[2:-1]
 
         index_raw = row_array[-1] # >>> '177'] (par exemple)
         # Formatage: re permet de garder que des nombres (regex \D).
         index = re.sub(r"\D", "", index_raw) # >>> 177 (même exemple)
 
-        #print index, name, email
+        print index, name, email
 
         #Chercher nom dossier ayant le même numero que l'index
         for directory in photos_dir_content:
