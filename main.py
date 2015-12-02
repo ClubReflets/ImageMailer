@@ -4,42 +4,49 @@
 import os
 import sys
 import csv
+import re
 from getpass import getpass
 from email_utils import Email, EmailConnection
 
 print '================================================'
 print '           Bievenue sur ImageMailer! V1.0       '
 print
-print '     Écrit par Skander pour le club photo       '
+print '        Écrit par Skander pour le club photo    '
 print '                 R E F L E T S                  '
-print '================================================'
-
 print
-
+print '         Contact: skander.kc@gmail.com          '
+print '================================================'
+print
 print "Veuillez d'abord entrer quelques informations..."
 
 # Récupérer fichier CSV
 csv_file_name = raw_input("- Indiquer le nom du fichier CSV contenant les emails: ")
 
+# Vérification validité fichier csv
 if not os.path.isfile(csv_file_name):
     raise FileNotFoundError("Fichier CSV Introuvable.")
-
 elif not csv_file_name.endswith(".csv"):
     raise ImportError("Le fichier doit être un CSV")
 
+# Lire les données
 with open(csv_file_name, 'rb') as csv_file:
     reader = csv.reader(csv_file, delimiter=',')
     next(reader) # Skip la première ligne (nom des colonnes)
+
     for row in reader:
         row_str = str(row)
         row_array = row_str.split(',')
 
         name = row_array[1]
         email = row_array[2]
-        #print name, email
+        # Formatage: supprimer les guillemets (') au début et à la fin
+        name = name[2:-1]
+        email = email[2:-1]
 
-        #last_index_coma = row_array.rindex('l')
-        #print last_index_coma
+        index_raw = row_array[-1] # Exemple >>> '177']
+        index = re.sub(r"\D", "", index_raw) # re : permet de garder que des nombres (regex \D). Donc dans l'exemple >>> 177
+
+        print index, name, email
 
 
 
