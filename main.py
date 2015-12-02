@@ -1,5 +1,4 @@
 import os
-import sys
 import csv
 import re
 from getpass import getpass
@@ -94,28 +93,4 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
 print("Déconnexion du serveur...")
 server.close()
 print("Déconnecté!")
-
-# server_name = input("- Entrer le serveur de messagerie ('g' pour Gmail): ")
-#
-# if server_name == 'g' or server_name == 'G':
-#     server_smtp = 'smtp.gmail.com'
-#     port = 587
-#
-# email = input('- Votre email: ')
-# password = getpass('- Your mot de passe: ')
-# to_email = input(' - Destination email: ')
-# to_name = input(' - Name of destination: ')
-# subject = 'Sending mail easily with Python'
-# message = 'here is the message body'
-# attachments = [sys.argv[0]]
-#
-# print 'Connecting to server...'
-# server = EmailConnection(server_smtp, port, email, password)
-# print 'Preparing the email...'
-# email = Email(email, to_email, subject, message)
-# print 'Sending...'
-# server.send(email)
-# print 'Disconnecting...'
-# server.close()
-# print 'Done!'
 

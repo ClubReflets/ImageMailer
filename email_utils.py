@@ -32,9 +32,7 @@ class Email:
         for file_name in attachments:
             # Récupérer le type de fichier
             mimetype, encoding = guess_type(file_name)
-            print(mimetype, encoding)
             mimetype = mimetype.split('/', 1)
-            print(mimetype)
             # Lire le fichier
             fp = open(file_name, 'rb')
              # Ajouter l'attachement
@@ -72,7 +70,6 @@ class EmailConnection:
         self.connection.ehlo()
         self.connection.starttls()
         self.connection.ehlo()
-        print("ehlo done.")
         self.connection.login(self.username, self.password)
 
     """
