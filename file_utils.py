@@ -34,3 +34,4 @@ class FileUtils:
             photos_dir_content = os.listdir(dir)
         else:
             photos_dir_content = os.listdir(os.curdir)
+        return photos_dir_content

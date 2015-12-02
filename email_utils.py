@@ -68,10 +68,11 @@ class EmailConnection:
     Connection au serveur SMTP de la messagerie avec No. de port
     """
     def connect(self):
-        self.connection =  SMTP_SSL(self.smtp, self.port)
+        self.connection = SMTP(self.smtp, self.port)
         self.connection.ehlo()
         self.connection.starttls()
         self.connection.ehlo()
+        print("ehlo done.")
         self.connection.login(self.username, self.password)
 
     """

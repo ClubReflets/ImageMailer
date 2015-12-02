@@ -9,9 +9,11 @@ from file_utils import FileUtils
 f_utils = FileUtils()
 
 # ------ Variables gloables de configuration ------
-SERVER_SMTP = "smtps.etsmtl.ca"  # Serveur SMTP
+#SERVER_SMTP = "smtps.etsmtl.ca"  # Serveur SMTP
+SERVER_SMTP = "smtp.gmail.com"
 SERVER_PORT = 587  # Port SMTP
-FROM = "reflets@etsmtl.net"  # Courriel Reflets
+#FROM = "reflets@etsmtl.net"  # Courriel Reflets
+FROM = "skander.kc@gmail.com"
 # -------------------------------------------------
 
 print('================================================')
@@ -37,7 +39,7 @@ print("°°° Spécification du dossier image  et des données en .CSV °°°")
 # Dans ce dossier, on devrait retrouver pleins de dossier ayant comme nom l'index des participants
 root_dir = input(" - Indiquer le nom du dossier contenant les photos (laisse vide si actuel) : ")
 photos_dir_content = f_utils.get_directory_content(root_dir)
-print(root_dir)
+print(photos_dir_content)
 
 # Récupérer fichier CSV
 csv_file_name = input(" - Indiquer le nom du fichier CSV contenant les emails: ")
@@ -56,6 +58,9 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
 
         name = row_array[1].strip()
         email = row_array[2].strip()
+        # Formatage: supprimer les guillemets (') au début et à la fin
+        name = name[1:-1]
+        email = email[1:-1]
 
         index_raw = row_array[-1] # >>> '177'] (par exemple)
         # Formatage: re permet de garder que des nombres (regex \D).
@@ -75,12 +80,21 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
                 for i, photo in enumerate(photos):
                     photos[i] = directory_path + "/" + photo
 
-                #print(photos)
+                print(photos)
 
-                email = Email("lol@gmail.com", "lol@gmail.com", "lol", "lol")
-                email.attach_files(photos)
+                subject = 'Test photos'
+                message ='Salut ! \n Voici tes photos!'
+                print("Préparation du courriel à envoyer à " + name)
+                email = Email(FROM, email, subject, message, attachments=photos)
+                print("Envoi...")
+                server.send(email)
+                print("Email envoyé!")
 
-#
+# Déconnexion
+print("Déconnexion du serveur...")
+server.close()
+print("Déconnecté!")
+
 # server_name = input("- Entrer le serveur de messagerie ('g' pour Gmail): ")
 #
 # if server_name == 'g' or server_name == 'G':
