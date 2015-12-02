@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import os
 import sys
 import csv
@@ -19,12 +16,13 @@ print('         Contact: skander.kc@gmail.com          ')
 print('================================================')
 print()
 print("Veuillez d'abord entrer quelques informations...")
+print()
 
 futils = FileUtils()
 
 # Récupérer le dossier contenant les photos
 # Dans ce dossier, on devrait retrouver pleins de dossier ayant comme nom l'index des participants
-root_dir_name = input("- Indiquer le nom du dossier contenant les photos (laisse vide si actuel): ")
+root_dir_name = input("- Indiquer le nom du dossier contenant les photos (laisse vide si actuel) : ")
 
 if os.path.isdir(root_dir_name):
     photos_dir_content = os.listdir(root_dir_name)
@@ -41,6 +39,7 @@ futils.check_if_csv(csv_file_name)
 # Lire les données
 with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
     reader = csv.reader(csv_file, delimiter=',')
+
     next(reader) # Skip la première ligne (nom des colonnes)
 
     for row in reader:
