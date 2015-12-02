@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import sys
+import csv
 from getpass import getpass
 from email_utils import Email, EmailConnection
 
@@ -15,6 +17,31 @@ print '================================================'
 print
 
 print "Veuillez d'abord entrer quelques informations..."
+
+# Récupérer fichier CSV
+csv_file_name = raw_input("- Indiquer le nom du fichier CSV contenant les emails: ")
+
+if not os.path.isfile(csv_file_name):
+    raise FileNotFoundError("Fichier CSV Introuvable.")
+
+elif not csv_file_name.endswith(".csv"):
+    raise ImportError("Le fichier doit être un CSV")
+
+with open(csv_file_name, 'rb') as csv_file:
+    reader = csv.reader(csv_file, delimiter=',')
+    next(reader) # Skip la première ligne (nom des colonnes)
+    for row in reader:
+        row_str = str(row)
+        row_array = row_str.split(',')
+
+        name = row_array[1]
+        email = row_array[2]
+        #print name, email
+
+        #last_index_coma = row_array.rindex('l')
+        #print last_index_coma
+
+
 
 server_name = raw_input("- Entrer le serveur de messagerie ('g' pour Gmail): ")
 
