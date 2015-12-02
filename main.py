@@ -9,32 +9,32 @@ from getpass import getpass
 from email_utils import Email, EmailConnection
 from file_utils import FileUtils
 
-print '================================================'
-print '           Bievenue sur ImageMailer! V1.0       '
-print
-print '        Écrit par Skander pour le club photo    '
-print '                 R E F L E T S                  '
-print
-print '         Contact: skander.kc@gmail.com          '
-print '================================================'
-print
-print "Veuillez d'abord entrer quelques informations..."
+print('================================================')
+print('           Bievenue sur ImageMailer! V1.0       ')
+print()
+print('        Écrit par Skander pour le club photo    ')
+print('                 R E F L E T S                  ')
+print()
+print('         Contact: skander.kc@gmail.com          ')
+print('================================================')
+print()
+print("Veuillez d'abord entrer quelques informations...")
 
 futils = FileUtils()
 
 # Récupérer le dossier contenant les photos
 # Dans ce dossier, on devrait retrouver pleins de dossier ayant comme nom l'index des participants
-root_dir_name = raw_input("- Indiquer le nom du dossier contenant les photos (laisse vide si actuel): ")
+root_dir_name = input("- Indiquer le nom du dossier contenant les photos (laisse vide si actuel): ")
 
 if os.path.isdir(root_dir_name):
     photos_dir_content = os.listdir(root_dir_name)
 else:
     photos_dir_content = os.listdir(os.curdir)
 
-print photos_dir_content
+print(photos_dir_content)
 
 # Récupérer fichier CSV
-csv_file_name = raw_input("- Indiquer le nom du fichier CSV contenant les emails: ")
+csv_file_name = input("- Indiquer le nom du fichier CSV contenant les emails: ")
 # Vérification validité fichier csv
 futils.check_if_csv(csv_file_name)
 
@@ -57,7 +57,7 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
         # Formatage: re permet de garder que des nombres (regex \D).
         index = re.sub(r"\D", "", index_raw) # >>> 177 (même exemple)
 
-        print index, name, email
+        print(index, name, email)
 
         #Chercher nom dossier ayant le même numero que l'index
         for directory in photos_dir_content:
@@ -70,18 +70,18 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
                 for i,photo in enumerate(photos):
                     photos[i] = directory_path + "/" + photo
 
-                print photos
+                print(photos)
 #
-# server_name = raw_input("- Entrer le serveur de messagerie ('g' pour Gmail): ")
+# server_name = input("- Entrer le serveur de messagerie ('g' pour Gmail): ")
 #
 # if server_name == 'g' or server_name == 'G':
 #     server_smtp = 'smtp.gmail.com'
 #     port = 587
 #
-# email = raw_input('- Votre email: ')
+# email = input('- Votre email: ')
 # password = getpass('- Your mot de passe: ')
-# to_email = raw_input(' - Destination email: ')
-# to_name = raw_input(' - Name of destination: ')
+# to_email = input(' - Destination email: ')
+# to_name = input(' - Name of destination: ')
 # subject = 'Sending mail easily with Python'
 # message = 'here is the message body'
 # attachments = [sys.argv[0]]
