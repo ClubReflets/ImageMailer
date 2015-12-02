@@ -49,7 +49,9 @@ with open(csv_file_name, 'rb') as csv_file:
 
         print index, name, email
 
-        # Chercher des dossier contenant le même index
+        # Chercher nom dossier ayant le même numero que l'index
+        # Récupérer le nom des images
+
 
 
 
