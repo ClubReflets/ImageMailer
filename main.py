@@ -43,10 +43,13 @@ with open(csv_file_name, 'rb') as csv_file:
         name = name[2:-1]
         email = email[2:-1]
 
-        index_raw = row_array[-1] # Exemple >>> '177']
-        index = re.sub(r"\D", "", index_raw) # re : permet de garder que des nombres (regex \D). Donc dans l'exemple >>> 177
+        index_raw = row_array[-1] # >>> '177'] (par exemple)
+        # Formatage: re permet de garder que des nombres (regex \D).
+        index = re.sub(r"\D", "", index_raw) # >>> 177 (même exemple)
 
         print index, name, email
+
+        # Chercher des dossier contenant le même index
 
 
 
