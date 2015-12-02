@@ -23,3 +23,14 @@ class FileUtils:
             raise Exception("Fichier CSV Introuvable.")
         elif not file.endswith(".csv"):
             raise Exception("Le fichier doit être un CSV")
+
+    """
+    Vérifie si l'objet passé en paramètre est un dossier.
+    Si oui, retourner le contenu du dossier
+    Si non, retourner le contneu du dossier actuel
+    """
+    def get_directory_content(self, dir):
+        if os.path.isdir(dir):
+            photos_dir_content = os.listdir(dir)
+        else:
+            photos_dir_content = os.listdir(os.curdir)
