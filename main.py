@@ -7,6 +7,7 @@ import csv
 import re
 from getpass import getpass
 from email_utils import Email, EmailConnection
+from file_utils import FileUtils
 
 print '================================================'
 print '           Bievenue sur ImageMailer! V1.0       '
@@ -18,6 +19,8 @@ print '         Contact: skander.kc@gmail.com          '
 print '================================================'
 print
 print "Veuillez d'abord entrer quelques informations..."
+
+futils = FileUtils()
 
 # Récupérer le dossier contenant les photos
 # Dans ce dossier, on devrait retrouver pleins de dossier ayant comme nom l'index des participants
@@ -32,12 +35,8 @@ print photos_dir_content
 
 # Récupérer fichier CSV
 csv_file_name = raw_input("- Indiquer le nom du fichier CSV contenant les emails: ")
-
 # Vérification validité fichier csv
-if not os.path.isfile(csv_file_name):
-    raise FileNotFoundError("Fichier CSV Introuvable.")
-elif not csv_file_name.endswith(".csv"):
-    raise ImportError("Le fichier doit être un CSV")
+futils.check_if_csv(csv_file_name)
 
 # Lire les données
 with open(csv_file_name, 'rb') as csv_file:
@@ -70,7 +69,7 @@ with open(csv_file_name, 'rb') as csv_file:
 
                 # Ne garder que les images
                 for file in photos:
-                    if not (file.endswith(".jpg") or file.endswith(".jpeg") or file.endswith(".png")):
+                    if not futils.is_photo(file):
                         photos.remove(file)
 
                 print photos
