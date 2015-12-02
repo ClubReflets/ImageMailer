@@ -57,7 +57,7 @@ with open(csv_file_name, 'rb') as csv_file:
         # Formatage: re permet de garder que des nombres (regex \D).
         index = re.sub(r"\D", "", index_raw) # >>> 177 (même exemple)
 
-        print index, name, email
+        #print index, name, email
 
         #Chercher nom dossier ayant le même numero que l'index
         for directory in photos_dir_content:
@@ -65,12 +65,10 @@ with open(csv_file_name, 'rb') as csv_file:
             # Youpi ! On a trouvé le participant et son dossier contenant les photos
             # On peut maintenant envoyer ses photos !
             if os.path.isdir(directory_path) and directory == index:
-                photos = os.listdir(directory_path)
-
-                # Ne garder que les images
-                for file in photos:
-                    if not futils.is_photo(file):
-                        photos.remove(file)
+                photos = [f for f in os.listdir(directory_path) if futils.is_photo(f)] # Ne récuperer que les images
+                # Remplacer la photo par le chemin complet
+                for i,photo in enumerate(photos):
+                    photos[i] = directory_path + "/" + photo
 
                 print photos
 #
