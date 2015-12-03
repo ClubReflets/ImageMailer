@@ -52,102 +52,100 @@ f_utils.check_if_csv(csv_file_name)
 
 print()
 
-
-# Lire les données en csv et envoyer les courriels
 count_rows = sum(1 for line in open(csv_file_name))
 total_participant = count_rows - 1
 
-if count_rows > 0:
-    print("°°° Envoi de " + str(total_participant) + " courriels °°°")
-    with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
-        reader = csv.reader(csv_file, delimiter=',')
-        next(reader)   # Skip la première ligne (nom des colonnes)
+if count_rows == 0:
+    raise Exception("Le fichier .Csv est vide.")
+
+# Lire les données en csv et envoyer les courriels
+print("°°° Envoi de " + str(total_participant) + " courriels °°°")
+with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
+    reader = csv.reader(csv_file, delimiter=',')
+    next(reader)   # Skip la première ligne (nom des colonnes)
 
 
-        emails_not_sent = []
+    emails_not_sent = []
 
-        index_row = 1
+    index_row = 1
 
-        for row in reader:
-            row_str = str(row)
-            row_array = row_str.split(',')
+    for row in reader:
+        row_str = str(row)
+        row_array = row_str.split(',')
 
-            name = row_array[1].strip()
-            email = row_array[2].strip()
-            # Formatage: supprimer les guillemets (') au début et à la fin
-            name = name[1:-1]
-            email = email[1:-1]
+        name = row_array[1].strip()
+        email = row_array[2].strip()
+        # Formatage: supprimer les guillemets (') au début et à la fin
+        name = name[1:-1]
+        email = email[1:-1]
 
-            index_raw = row_array[-1] # >>> '177'] (par exemple)
-            # Formatage: re permet de garder que des nombres (regex \D).
-            index = re.sub(r"\D", "", index_raw) # >>> 177 (même exemple)
+        index_raw = row_array[-1] # >>> '177'] (par exemple)
+        # Formatage: re permet de garder que des nombres (regex \D).
+        index = re.sub(r"\D", "", index_raw) # >>> 177 (même exemple)
 
-            participant = (index + " - " + name + " - " + email)
+        participant = (index + " - " + name + " - " + email)
 
-            # Chercher nom dossier ayant le même numero que l'index
-            for directory in photos_dir_content:
-                directory_path = root_dir + "/" + directory
-                # Youpi ! On a trouvé le participant et son dossier contenant les photos
-                # On peut maintenant envoyer ses photos !
-                if os.path.isdir(directory_path) and directory == index:
-                    photos = [f for f in os.listdir(directory_path) if f_utils.is_photo(f)]  # Ne récuperer que les images
+        # Chercher nom dossier ayant le même numero que l'index
+        for directory in photos_dir_content:
+            directory_path = root_dir + "/" + directory
+            # Youpi ! On a trouvé le participant et son dossier contenant les photos
+            # On peut maintenant envoyer ses photos !
+            if os.path.isdir(directory_path) and directory == index:
+                photos = [f for f in os.listdir(directory_path) if f_utils.is_photo(f)]  # Ne récuperer que les images
 
-                    # Remplacer la photo par le chemin complet
-                    for i, photo in enumerate(photos):
-                        photos[i] = directory_path + "/" + photo
+                # Remplacer la photo par le chemin complet
+                for i, photo in enumerate(photos):
+                    photos[i] = directory_path + "/" + photo
 
-                    subject = 'Test photos'
-                    message = f_utils.read_file_content("mails/photo_prete.html")
+                subject = 'Test photos'
+                message = f_utils.read_file_content("mails/test.html")
 
-                    print('---------------------- ' + str(index_row) + '/' + str(total_participant) + ' ----------------------')
-                    print(participant)
-                    print("Préparation du courriel à envoyer à " + name )
-                    email = Email(FROM, email, subject, message, attachments=photos, message_type="html")
-                    print("Envoi...")
+                print('---------------------- ' + str(index_row) + '/' + str(total_participant) + ' ----------------------')
+                print(participant)
+                print("Préparation du courriel à envoyer à " + name )
+                email = Email(FROM, email, subject, message, attachments=photos, message_type="html")
+                print("Envoi...")
 
-                    try:
-                        server.send(email)
-                    except:
-                        print("ÉCHEC de l'envoi du courriel à " + name)
-                        print("On passe au suivant...")
-                        emails_not_sent.append(participant)
-                        pass
-                    print("Email envoyé!")
+                try:
+                    server.send(email)
+                    print("Courriel envoyé!")
+                except:
+                    print("ÉCHEC de l'envoi du courriel à " + name)
+                    print("On passe au suivant...")
+                    emails_not_sent.append(participant)
+                    pass
 
-            index_row += 1
-    print()
+        index_row += 1
+print()
 
-    # Afficher les emails non envoyés si c'est le cas
-    count_emails_not_sent = len(emails_not_sent)
-    if count_emails_not_sent > 0:
-        print("°°° Oyé! Oyé! il y a eu " + str(count_emails_not_sent) + " courriel(s) non envoyé(s) °°°")
-        print("Voici la liste, sous la forme : index nom courriel ")
+# Afficher les emails non envoyés si c'est le cas
+count_emails_not_sent = len(emails_not_sent)
+if count_emails_not_sent > 0:
+    print("°°° Oyé! Oyé! il y a eu " + str(count_emails_not_sent) + " courriels inacheminés °°°")
+    print("Voici la liste, sous la forme : index - nom - courriel ")
 
-        # Afficher & enregistrer la liste dans un fichier texte
-        now = datetime.strftime(datetime.now(), '%Y-%m-%d-%H_%M_%S')
-        file_emails_not_sent = "emails_not_sent_" + now + ".txt"
+    # Afficher & enregistrer la liste dans un fichier texte
+    now = datetime.strftime(datetime.now(), '%Y-%m-%d-%H_%M_%S')
+    file_emails_not_sent = "emails_not_sent_" + now + ".txt"
 
-        if not os.path.exists("log"):
-            os.makedirs("log")
+    if not os.path.exists("log"):
+        os.makedirs("log")
 
-        with open("log/" + file_emails_not_sent, 'w') as text_file:
-            text_file.write("Liste des emails non envoyés \n")
-            text_file.write("Format id - nom - email : \n\n")
-            for email in emails_not_sent:
-                email_str = str(email)
-                print(email_str)
-                text_file.write(email_str + "\n")
-        print("Pas de panique, vous pouvez consulter cette liste dans le fichier : log/" + file_emails_not_sent)
-
-    else:
-        print("°°° Succès! Tous les courriels ont été envoyés. °°°")
-
-    print()
-
-    # Déconnexion
-    print("Déconnexion du serveur...")
-    server.close()
-    print("Déconnecté!")
+    with open("log/" + file_emails_not_sent, 'w') as text_file:
+        text_file.write("Liste des courriels inacheminés \n")
+        text_file.write("Format id - nom - courriel : \n\n")
+        for email in emails_not_sent:
+            email_str = str(email)
+            print(email_str)
+            text_file.write(email_str + "\n")
+    print("Pas de panique, vous pouvez consulter cette liste dans le fichier : log/" + file_emails_not_sent)
 
 else:
-    print("Le fichier .Csv est vide.")
+    print("°°° Succès! Tous les courriels ont été envoyés. °°°")
+
+print()
+
+# Déconnexion
+print("Déconnexion du serveur...")
+server.close()
+print("Déconnecté!")
