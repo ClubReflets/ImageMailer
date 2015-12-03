@@ -97,7 +97,7 @@ if count_rows > 0:
                         photos[i] = directory_path + "/" + photo
 
                     subject = 'Test photos'
-                    message = f_utils.read_html("mails/photo_prete.html")
+                    message = f_utils.read_file_content("mails/photo_prete.html")
 
                     print('---------------------- ' + str(index_row) + '/' + str(total_participant) + ' ----------------------')
                     print(participant)
