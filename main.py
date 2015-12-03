@@ -67,7 +67,7 @@ if count_rows > 0:
         emails_not_sent = []
 
         index_row = 1
-        
+
         for row in reader:
             row_str = str(row)
             row_array = row_str.split(',')
@@ -97,12 +97,12 @@ if count_rows > 0:
                         photos[i] = directory_path + "/" + photo
 
                     subject = 'Test photos'
-                    message ='Salut ! \n Voici tes photos!'
+                    message = f_utils.read_html("mails/photo_prete.html")
 
                     print('---------------------- ' + str(index_row) + '/' + str(total_participant) + ' ----------------------')
                     print(participant)
                     print("Préparation du courriel à envoyer à " + name )
-                    email = Email(FROM, email, subject, message, attachments=photos)
+                    email = Email(FROM, email, subject, message, attachments=photos, message_type="html")
                     print("Envoi...")
 
                     try:

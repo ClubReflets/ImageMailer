@@ -35,3 +35,10 @@ class FileUtils:
         else:
             photos_dir_content = os.listdir(os.curdir)
         return photos_dir_content
+
+    def read_html(self, file_html):
+        html = None
+        if file_html:
+            with open(file_html, 'r', encoding="utf-8") as file:
+                html = file.read()
+        return html
