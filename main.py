@@ -66,6 +66,8 @@ if count_rows > 0:
 
         emails_not_sent = []
 
+        index_row = 1
+        
         for row in reader:
             row_str = str(row)
             row_array = row_str.split(',')
@@ -97,7 +99,7 @@ if count_rows > 0:
                     subject = 'Test photos'
                     message ='Salut ! \n Voici tes photos!'
 
-                    print('---------------------- ' + str(index) + '/' + str(total_participant) + ' ----------------------')
+                    print('---------------------- ' + str(index_row) + '/' + str(total_participant) + ' ----------------------')
                     print(participant)
                     print("Préparation du courriel à envoyer à " + name )
                     email = Email(FROM, email, subject, message, attachments=photos)
@@ -111,6 +113,8 @@ if count_rows > 0:
                         emails_not_sent.append(participant)
                         pass
                     print("Email envoyé!")
+
+            index_row += 1
     print()
 
     # Afficher les emails non envoyés si c'est le cas
@@ -147,6 +151,3 @@ if count_rows > 0:
 
 else:
     print("Le fichier .Csv est vide.")
-
-
-
