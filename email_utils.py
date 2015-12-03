@@ -56,11 +56,7 @@ class EmailConnection:
         self.port = port
         self.username = username
         self.password = password
-
-        try:
-            self.connect()
-        except:
-            raise Exception("Oups, il y a une erreur de connexion au serveur de messagerie. Réessayez.")
+        self.connect()
 
     """
     Connection au serveur SMTP de la messagerie avec No. de port
