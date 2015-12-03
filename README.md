@@ -21,5 +21,5 @@ python3 main.py
 * [ ] Vérifier qui ne connait pas Reflets et écrire un petit texte pour présenter le club 
 * [ ] Écrire une vrai message (mise en forme HTML?)  
 * [ ] Nettoyage code
-* [ ] Faire une petit système qui enregistre les courriels non envoyés (si jamais un courriel fail, continuer l'envoi et enregistrer le courriel non envoyé)
+* [x] Faire une petit système qui enregistre les courriels non envoyés (si jamais un courriel fail, continuer l'envoi et enregistrer le courriel non envoyé)
 
