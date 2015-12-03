@@ -13,13 +13,13 @@ python3 main.py
 ```
 
 ## ToDo
+* [ ] Faire fonctionner l'adresse reflets@etsmtl.net
+* [ ] Vérifier qui ne connait pas Reflets et écrire un petit texte pour présenter le club 
+* [x] Envoyer un message en forme HTML
 * [x] Lire fichier CSV et séparer les fichiers 
 * [x] Récupérer l'adresse courriel 
 * [x] Attacher des images et envoyer par courriel 
 * [x] Tester ! :smile:
-* [ ] Faire fonctionner l'adresse reflets@etsmtl.net
-* [ ] Vérifier qui ne connait pas Reflets et écrire un petit texte pour présenter le club 
-* [ ] Écrire une vrai message (mise en forme HTML?)  
-* [ ] Nettoyage code
 * [x] Faire une petit système qui enregistre les courriels non envoyés (si jamais un courriel fail, continuer l'envoi et enregistrer le courriel non envoyé)
+* [ ] Nettoyage code
 
