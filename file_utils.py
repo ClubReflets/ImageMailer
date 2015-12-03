@@ -35,7 +35,10 @@ class FileUtils:
         else:
             photos_dir_content = os.listdir(os.curdir)
         return photos_dir_content
-
+    
+    """
+    Lit et retourne le contenu d'un fichier
+    """
     def read_file_content(self, file):
         content = None
         if file:
