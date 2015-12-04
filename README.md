@@ -1,4 +1,4 @@
-# ImageMailer
+# ImageMailer :mailbox:
 Script en python permettant d'automatiser l'envoi d'images par courriel
 
 ![](doc/images/terminal.png)
