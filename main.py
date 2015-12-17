@@ -97,7 +97,7 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
                 for i, photo in enumerate(photos):
                     photos[i] = directory_path + "/" + photo
 
-                subject = 'Test photos'
+                subject = 'Votre photo pour Linkedin est prête!'
                 message = f_utils.read_file_content("mails/test.html")
 
                 print('---------------------- ' + str(index_row) + '/' + str(total_participant) + ' ----------------------')
