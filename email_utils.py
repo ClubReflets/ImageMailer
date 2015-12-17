@@ -29,6 +29,7 @@ class Email:
     Permet d'attacher des fichiers (images par exemple) dans un courriel
     """
     def attach_files(self, attachments):
+
         for file_name in attachments:
             # Récupérer le type de fichier
             mimetype, encoding = guess_type(file_name)

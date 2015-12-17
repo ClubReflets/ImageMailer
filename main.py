@@ -9,10 +9,9 @@ from datetime import datetime
 f_utils = FileUtils()
 
 # ------ Variables gloables de configuration ------
-#SERVER_SMTP = "smtps.etsmtl.ca"  # Serveur SMTP
 SERVER_SMTP = "smtp.gmail.com"
 SERVER_PORT = 587  # Port SMTP
-#FROM = "reflets@etsmtl.net"  # Courriel Reflets
+FROM = "reflets@etsmtl.net" # Adresse Reflets par défaut
 # -------------------------------------------------
 
 print('================================================')
@@ -29,10 +28,12 @@ print("°°° Connexion au serveur de messagerie Gmail °°°")
 # Connexion au serveur SMTP Gmail
 password = getpass(" - Entrer le mot de passe de " + FROM + " : ")
 print("Connexion au serveur de messagerie...")
+
 try:
     server = EmailConnection(SERVER_SMTP, SERVER_PORT, FROM, password)
 except:
-    raise Exception("Oups, il y a une erreur de connexion au serveur de messagerie. Réessayez.")
+    raise Exception("Il y a une erreur de connexion au serveur de messagerie. Réessayez.")
+
 print("Connexion établie!")
 
 print()
