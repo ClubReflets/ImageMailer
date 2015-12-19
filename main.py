@@ -82,6 +82,7 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
         index_raw = row_array[-1] # >>> '177'] (par exemple)
         # Formatage: re permet de garder que des nombres (regex \D).
         index = re.sub(r"\D", "", index_raw) # >>> 177 (même exemple)
+        formatted_index = f_utils.formatted_index(int(index))  # Ex. si index 1 => 001
 
         participant = (index + " - " + name + " - " + email)
 
@@ -90,7 +91,7 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
             directory_path = root_dir + "/" + directory
             # Youpi ! On a trouvé le participant et son dossier contenant les photos
             # On peut maintenant envoyer ses photos !
-            if os.path.isdir(directory_path) and directory == index:
+            if os.path.isdir(directory_path) and directory == formatted_index:
                 photos = [f for f in os.listdir(directory_path) if f_utils.is_photo(f)]  # Ne récuperer que les images
 
                 # Remplacer la photo par le chemin complet

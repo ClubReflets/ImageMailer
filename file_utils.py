@@ -45,3 +45,11 @@ class FileUtils:
             with open(file, 'r', encoding="utf-8") as f:
                 content = f.read()
         return content
+
+    """
+    Formate l'index pour afficher en format xxx
+    Exemple: 1 donne 001, 99 donne 099, etc.
+    """
+    def formatted_index(self, index):
+        return '{0:03}'.format(index)
+
