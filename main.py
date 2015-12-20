@@ -16,7 +16,7 @@ FROM = "skander.kc@gmail.com"
 # -------------------------------------------------
 
 print('================================================')
-print('           Bievenue sur ImageMailer! V1.0       ')
+print('           Bievenue sur ImageMailer! V1.1       ')
 print()
 print('        Écrit par Skander pour le club photo    ')
 print('                 R E F L E T S                  ')
