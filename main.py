@@ -11,7 +11,8 @@ f_utils = FileUtils()
 # ------ Variables gloables de configuration ------
 SERVER_SMTP = "smtp.gmail.com"
 SERVER_PORT = 587  # Port SMTP
-FROM = "reflets@etsmtl.net" # Adresse Reflets par défaut
+#FROM = "reflets@etsmtl.net" # Adresse Reflets par défaut
+FROM = "skander.kc@gmail.com"
 # -------------------------------------------------
 
 print('================================================')
@@ -20,7 +21,7 @@ print()
 print('        Écrit par Skander pour le club photo    ')
 print('                 R E F L E T S                  ')
 print()
-print('         Contact: skander.kc@gmail.com          ')
+print('         Contact: skander.kc AT gmail.com       ')
 print('================================================')
 print()
 print("°°° Connexion au serveur de messagerie Gmail °°°")
@@ -92,29 +93,38 @@ with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
             # Youpi ! On a trouvé le participant et son dossier contenant les photos
             # On peut maintenant envoyer ses photos !
             if os.path.isdir(directory_path) and directory == formatted_index:
+
                 photos = [f for f in os.listdir(directory_path) if f_utils.is_photo(f)]  # Ne récuperer que les images
-
-                # Remplacer la photo par le chemin complet
-                for i, photo in enumerate(photos):
-                    photos[i] = directory_path + "/" + photo
-
-                subject = 'Votre photo LinkedIn est prête!'
-                message = f_utils.read_file_content("mails/email.html")
 
                 print('---------------------- ' + str(index_row) + '/' + str(total_participant) + ' ----------------------')
                 print(participant)
-                print("Préparation du courriel à envoyer à " + name )
-                email = Email(FROM, email, subject, message, attachments=photos, message_type="html")
-                print("Envoi...")
 
-                try:
-                    server.send(email)
-                    print("Courriel envoyé!")
-                except:
-                    print("ÉCHEC de l'envoi du courriel à " + name)
-                    print("On passe au suivant...")
+                if len(photos) > 0:
+                    # Remplacer la photo par le chemin complet
+                    for i, photo in enumerate(photos):
+                        photos[i] = directory_path + "/" + photo
+
+                    subject = 'Votre photo LinkedIn est prête!'
+                    message = f_utils.read_file_content("mails/email.html")
+                    print("Préparation du courriel à envoyer à " + name )
+                    email = Email(FROM, email, subject, message, attachments=photos, message_type="html")
+                    print("Envoi...")
+
+                    try:
+                        server.send(email)
+                        print("Courriel envoyé!")
+                    except:
+                        print("ÉCHEC de l'envoi du courriel à " + name)
+                        print("On passe au suivant...")
+                        reason = "Échec envoi"
+                        participant = participant + " - " + reason
+                        emails_not_sent.append(participant)
+                        pass
+                else:
+                    print("Aucune photo trouvée")
+                    reason = "Aucune photo"
+                    participant = participant + " - " + reason
                     emails_not_sent.append(participant)
-                    pass
 
         index_row += 1
 print()
@@ -134,7 +144,7 @@ if count_emails_not_sent > 0:
 
     with open("log/" + file_emails_not_sent, 'w') as text_file:
         text_file.write("Liste des courriels inacheminés \n")
-        text_file.write("Format id - nom - courriel : \n\n")
+        text_file.write("Format id - nom - courriel - raison : \n\n")
         for email in emails_not_sent:
             email_str = str(email)
             print(email_str)
