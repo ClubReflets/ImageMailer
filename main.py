@@ -12,7 +12,7 @@ f_utils = FileUtils()
 SERVER_SMTP = "smtp.gmail.com"
 SERVER_PORT = 587  # Port SMTP
 #FROM = "reflets@etsmtl.net" # Adresse Reflets par défaut
-FROM = "skander.kc@gmail.com"
+FROM = ""
 # -------------------------------------------------
 
 print('================================================')
