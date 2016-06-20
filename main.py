@@ -42,7 +42,7 @@ print()
 print("°°° Spécification du dossier image  et des données en .CSV °°°")
 # Récupérer le dossier contenant les photos
 # Dans ce dossier, on devrait retrouver pleins de dossier ayant comme nom l'index des participants
-root_dir = input(" - Indiquer le nom du dossier contenant les photos (laisse vide si actuel) : ")
+root_dir = input(" - Indiquer le nom du dossier contenant les photos (laisser vide si actuel) : ")
 photos_dir_content = f_utils.get_directory_content(root_dir)
 #print(photos_dir_content)
 
