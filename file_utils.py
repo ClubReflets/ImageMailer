@@ -27,7 +27,7 @@ class FileUtils:
     """
     Vérifie si l'objet passé en paramètre est un dossier.
     Si oui, retourner le contenu du dossier
-    Si non, retourner le contneu du dossier actuel
+    Si non, retourner le contenu du dossier actuel
     """
     def get_directory_content(self, dir):
         if os.path.isdir(dir):
